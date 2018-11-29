@@ -1,0 +1,86 @@
+{
+    "name": "nopolabs/ebay_api_factory_php",
+    "description": "Factory to construct OAuth2 clients for EBay RESTful APIs",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_account_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_inventory_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_compliance_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_fulfillment_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_marketing_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_logistics_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_analytics_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_sell_metadata_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_commerce_taxonomy_v1_beta_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_commerce_catalog_v1_beta_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_commerce_translation_v1_oas2_php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nopolabs/ebay_developer_analytics_v1_beta_oas2_php"
+        }
+    ],
+    "require": {
+        "sainsburys/guzzle-oauth2-plugin": "^3.0",
+        "nopolabs/ebay_sell_account_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_inventory_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_compliance_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_fulfillment_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_marketing_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_logistics_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_analytics_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_sell_metadata_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_commerce_taxonomy_v1_beta_oas2_php": "dev-master",
+        "nopolabs/ebay_commerce_catalog_v1_beta_oas2_php": "dev-master",
+        "nopolabs/ebay_commerce_translation_v1_oas2_php": "dev-master",
+        "nopolabs/ebay_developer_analytics_v1_beta_oas2_php": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": { "Nopolabs\\EBay\\" : "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Nopolabs\\EBay\\" : "test/" }
+    }, 
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dan Revel",
+            "email": "dan@nopolabs.com"
+        }
+    ]
+}
