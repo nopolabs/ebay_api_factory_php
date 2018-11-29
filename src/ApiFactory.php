@@ -54,38 +54,34 @@ use Sainsburys\Guzzle\Oauth2\Middleware\OAuthMiddleware;
 class ApiFactory
 {
     public const API_EBAY_COM = 'https://api.ebay.com';
+    public const DEFAULT_SCOPE = 'https://api.ebay.com/oauth/api_scope';
 
-    private $baseUri = self::API_EBAY_COM;
-    private $scope = 'https://api.ebay.com/oauth/api_scope';
+    private $baseUri;
+    private $scope;
     private $clientId;
     private $clientSecret;
+
     private $oauth2Client;
+    private $sellMetadataConfig;
+    private $sellMarketingConfig;
+    private $sellLogisticsConfig;
+    private $sellInventoryConfig;
+    private $sellFulfillmentConfig;
+    private $sellComplianceConfig;
+    private $sellAnalyticsConfig;
+    private $sellAccountConfig;
+    private $developerAnalyticsConfig;
+    private $commerceTranslationConfig;
+    private $commerceTaxonomyConfig;
+    private $commerceCatalogConfig;
 
-    public function setBaseUri(string $baseUri) : ApiFactory
+    public function __construct(ApiConfig $config)
     {
-        $this->baseUri = $baseUri;
-        return $this;
+        $this->baseUri = $config->getBaseUri();
+        $this->clientId = $config->getClientId();
+        $this->clientSecret = $config->getClientSecret();
+        $this->scope = $config->getScope();
     }
-
-    public function setScope(string $scope) : ApiFactory
-    {
-        $this->scope = $scope;
-        return $this;
-    }
-
-    public function setClientId(string $id) : ApiFactory
-    {
-        $this->clientId = $id;
-        return $this;
-    }
-
-    public function setClientSecret(string $secret) : ApiFactory
-    {
-        $this->clientSecret = $secret;
-        return $this;
-    }
-
-    //////
 
     public function getChangeRequestApi() : ChangeRequestApi
     {
@@ -423,8 +419,6 @@ class ApiFactory
         return new MarketplaceApi($client, $config);
     }
 
-    //////
-
     private function getOauth2Client() : Client
     {
         if ($this->oauth2Client === null) {
@@ -461,109 +455,157 @@ class ApiFactory
 
     private function getCommerceCatalogConfiguration() : Commerce\Catalog\Configuration
     {
-        $config = Commerce\Catalog\Configuration::getDefaultConfiguration();
+        if ($this->commerceCatalogConfig === null) {
+            $config = Commerce\Catalog\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->commerceCatalogConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->commerceCatalogConfig;
     }
 
     private function getCommerceTaxonomyConfiguration() : Commerce\Taxonomy\Configuration
     {
-        $config = Commerce\Taxonomy\Configuration::getDefaultConfiguration();
+        if ($this->commerceTaxonomyConfig === null) {
+            $config = Commerce\Taxonomy\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->commerceTaxonomyConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->commerceTaxonomyConfig;
     }
 
     private function getCommerceTranslationConfiguration() : Commerce\Translation\Configuration
     {
-        $config = Commerce\Translation\Configuration::getDefaultConfiguration();
+        if ($this->commerceTranslationConfig === null) {
+            $config = Commerce\Translation\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->commerceTranslationConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->commerceTranslationConfig;
     }
 
     private function getDeveloperAnalyticsConfiguration() : Developer\Analytics\Configuration
     {
-        $config = Developer\Analytics\Configuration::getDefaultConfiguration();
+        if ($this->developerAnalyticsConfig === null) {
+            $config = Developer\Analytics\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->developerAnalyticsConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->developerAnalyticsConfig;
     }
 
     private function getSellAccountConfiguration() : Sell\Account\Configuration
     {
-        $config = Sell\Account\Configuration::getDefaultConfiguration();
+        if ($this->sellAccountConfig === null) {
+            $config = Sell\Account\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellAccountConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellAccountConfig;
     }
 
     private function getSellAnalyticsConfiguration() : Sell\Analytics\Configuration
     {
-        $config = Sell\Analytics\Configuration::getDefaultConfiguration();
+        if ($this->sellAnalyticsConfig === null) {
+            $config = Sell\Analytics\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellAnalyticsConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellAnalyticsConfig;
     }
 
     private function getSellComplianceConfiguration() : Sell\Compliance\Configuration
     {
-        $config = Sell\Compliance\Configuration::getDefaultConfiguration();
+        if ($this->sellComplianceConfig === null) {
+            $config = Sell\Compliance\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellComplianceConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellComplianceConfig;
     }
 
     private function getSellFulfillmentConfiguration() : Sell\Fulfillment\Configuration
     {
-        $config = Sell\Fulfillment\Configuration::getDefaultConfiguration();
+        if ($this->sellFulfillmentConfig === null) {
+            $config = Sell\Fulfillment\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellFulfillmentConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellFulfillmentConfig;
     }
 
     private function getSellInventoryConfiguration() : Sell\Inventory\Configuration
     {
-        $config = Sell\Inventory\Configuration::getDefaultConfiguration();
+        if ($this->sellInventoryConfig === null) {
+            $config = Sell\Inventory\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellInventoryConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellInventoryConfig;
     }
 
     private function getSellLogisticsConfiguration() : Sell\Logistics\Configuration
     {
-        $config = Sell\Logistics\Configuration::getDefaultConfiguration();
+        if ($this->sellLogisticsConfig === null) {
+            $config = Sell\Logistics\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellLogisticsConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellLogisticsConfig;
     }
 
     private function getSellMarketingConfiguration() : Sell\Marketing\Configuration
     {
-        $config = Sell\Marketing\Configuration::getDefaultConfiguration();
+        if ($this->sellMarketingConfig === null) {
+            $config = Sell\Marketing\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellMarketingConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellMarketingConfig;
     }
 
     private function getSellMetadataConfiguration() : Sell\Metadata\Configuration
     {
-        $config = Sell\Metadata\Configuration::getDefaultConfiguration();
+        if ($this->sellMetadataConfig === null) {
+            $config = Sell\Metadata\Configuration::getDefaultConfiguration();
 
-        $host = $this->updateHost($config->getHost());
+            $host = $this->updateHost($config->getHost());
 
-        return $config->setHost($host)->setAccessToken(null);
+            $this->sellMetadataConfig = $config->setHost($host)->setAccessToken(null);
+        }
+
+        return $this->sellMetadataConfig;
     }
 }
